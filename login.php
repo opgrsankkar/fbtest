@@ -11,4 +11,4 @@
 // echo "<p>Site not yet ready</p>
 // <p>So redirecting you to Facebook</p>";
 
-// header("Refresh: 0; url= $url");
+ header("Refresh: 0; url= $url");
