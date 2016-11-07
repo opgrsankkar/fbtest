@@ -1,5 +1,31 @@
 nav {
-    background: linear-gradient(to bottom, rgba(241,231,103,1) 0%, rgba(254,182,69,1) 100%);
+    background: linear-gradient(to bottom, #f1e867 0%, #feb445 100%);
     font-size: 2em;
-    border-bottom: ;
+    box-shadow: 0px 3px 10px -4px rgba(0,0,0,0.75);
+}
+
+.btn {
+    background: linear-gradient(to bottom, #f1e867, #feb445);
+    border-radius: 6px;
+    color: #333447;
+    font-weight: bolder;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: linear-gradient(to bottom, #3cb0fd, #3498db);
+    font-weight: thick;
+    text-decoration: none;
+}
+
+.btn:active {
+    background: linear-gradient(to bottom, #2a75a3, #1a567d);
+    font-weight: thick;
+    text-decoration: none;
+}
+@media only screen and (min-width: 45em){ /* 720 */
+.empty-row {
+    height:32px;
+}
 }
