@@ -7,6 +7,7 @@ $sql = "SELECT fname,lname,email,dob FROM users where email='".$_POST['email']."
 echo '<p>'.$sql.'</p>';
 $result = $conn->query($sql);
 
+
 if ($result->num_rows == 1) {
     $row = $result->fetch_assoc();
     $_SESSION['fname']=$row['fname'];

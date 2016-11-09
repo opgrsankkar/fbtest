@@ -14,7 +14,7 @@ if ($conn->query($sql) === TRUE) {
 	echo "New User added";
 	header('Location: login.html');
 } else {
-	echo "Error: " . $sql . "<br>" . $conn->error;
+		echo "Error: " . $sql . "<br>" . $conn->error;
 }
 disconnect();
 ?>
