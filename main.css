@@ -1,7 +1,10 @@
 nav {
     background: linear-gradient(to bottom, #f1e867 0%, #feb445 100%);
+    z-index: 999;
     font-size: 2em;
     box-shadow: 0px 3px 10px -4px rgba(0,0,0,0.75);
+    margin-top: 0;
+    margin-left: 0;
 }
 
 .btn {
@@ -24,8 +27,34 @@ nav {
     font-weight: thick;
     text-decoration: none;
 }
+<<<<<<< HEAD
 @media only screen and (min-width: 22.5em){ /* 360 */
 .empty-row {
     height:16px;
+=======
+.sidenav ul{
+    list-style-type: none;
+>>>>>>> ad68a9c451eb321ffdf4b5d67c7797533b5161f0
 }
+@media only screen and (min-width: 45em){ /* 720 */
+    .empty-row {
+        height:32px;
+    }
+    .sidenav {
+        background-color: grey;
+        height: 100%;
+        width: 10%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        overflow-x: hidden;
+        padding-top: 60px;
+    }
+    .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 1.5em;
+        display: block;
+        transition: 0.3s;
+    }
 }
