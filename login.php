@@ -4,6 +4,7 @@ if (session_status() == PHP_SESSION_NONE) {
 	if (array_key_exists("fname",$_SESSION))
         if(empty($_SESSION['fname']))
             {header('Location:index.php');}
+
 }
 ?>
 <!DOCTYPE html>
