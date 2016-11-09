@@ -24,8 +24,8 @@ nav {
     font-weight: thick;
     text-decoration: none;
 }
-@media only screen and (min-width: 45em){ /* 720 */
+@media only screen and (min-width: 22.5em){ /* 360 */
 .empty-row {
-    height:32px;
+    height:16px;
 }
 }
