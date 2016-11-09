@@ -10,7 +10,7 @@ if (session_start()==PHP_SESSION_NONE)
 
 //$userid=$_POST['user_id'];
 
-$getid = "SELECT user_id FROM EVENTS WHERE email ='".$_SESSION['email']."'; "
+$getid = $_POST['user_id'];//"SELECT user_id FROM EVENTS WHERE email ='".$_SESSION['email']."'"; 
 $dateofevent=strftime('%F'); //$_SERVER['REQUEST_TIME'];
 $startdate = $_POST['start_date'];
 $enddate   = $_POST['end_date'];
