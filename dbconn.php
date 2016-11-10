@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $serverUsername = "root";
-$serverPassword = "123";
+$serverPassword = "";
 $databasename = "fbtest";
 $conn=NULL;
 function connect() {

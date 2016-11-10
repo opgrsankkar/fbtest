@@ -1,26 +1,31 @@
 <?php
-if (session_start()==PHP_SESSION_NONE)
-{
+if (session_status() == PHP_SESSION_NONE) {
     session_start();
-    if($_SESSION['fname']==''){header('Location:login.html');}
 }
 include 'dbconn.php';
 
 connect();
+ 
+$curr_date_time = date("Y-m-d H:i:s");
 
-//$userid=$_POST['user_id'];
+$u_id = $_SESSION['user_id'];
+$event_name = $_POST['event_name'];
+$event_desc = $_POST['event_description'];
 
-$getid = $_POST['user_id'];//"SELECT user_id FROM EVENTS WHERE email ='".$_SESSION['email']."'"; 
-$dateofevent=strftime('%F'); //$_SERVER['REQUEST_TIME'];
-$startdate = $_POST['start_date'];
-$enddate   = $_POST['end_date'];
-$viewership= $_POST['viewership'];
+$viewershipphp = 'friends';
+$start_date_time = $_POST['start_date'].' '.$_POST['start_time'];
+$end_date_time = $_POST['end_date'].' '.$_POST['end_time'];
+echo $start_date_time;
+echo $end_date_time;
 
-$sqlevent = "INSERT INTO EVENTS (user_id,date_of_event,start_date,end_date,viewership) VALUES ($getid,'$dateofevent','$startdate','$enddate','$viewership')  ";
+$stmt = $conn->prepare("INSERT INTO Events (user_id, event_name, add_date, start_date, end_date, event_desc, viewership) VALUES(?, ?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("issssss", $u_id, $event_name, $curr_date_time, $start_date_time, $end_date_time, $event_desc, $viewershipphp);
 
-if ($conn->query($sqlevent) === TRUE) {
-	echo "New Event added";
-    {header:(' Location: Events.html');}
+if ($stmt->execute() === TRUE) {
+    echo "New Event added";
+} else {
+    echo "Error: " . $stmt . "<br>" . $conn->error;
 }
 
+disconnect();
 ?>
