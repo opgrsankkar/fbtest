@@ -23,7 +23,7 @@ if (session_status() == PHP_SESSION_NONE) {
             <span id="logoutbtn" class="col-1-sm"><a href="logout.php">!</a></span>
         </nav>
 		<div id="sidenav" class="sidenav">
-            <span class=""><a href="#">Feed</a></span>
+            <span class=""><a href="index.php">Feed</a></span>
 			<span class=""><a href="posts.html">Posts</a></span>
             <span class=""><a href="photos.html">Photos</a></span>
             <span class=""><a href="events.php">Events</a></span>

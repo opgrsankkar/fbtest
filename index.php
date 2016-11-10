@@ -1,4 +1,5 @@
 <?php
+include 'dbconn.php';
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 	if($_SESSION['fname']==''){header('Location:login.php');}
@@ -20,7 +21,7 @@ if (session_status() == PHP_SESSION_NONE) {
                     {element.value = '';}
             }
             function addContents(element) {
-                if(element.value.length == 0) {
+                if(element.value.length == 0 && fieldValue == "What's on your mind...") {
                     element.value = fieldValue;
                 }
             }
@@ -49,6 +50,24 @@ if (session_status() == PHP_SESSION_NONE) {
                                 onblur="addContents(this)">What's on your mind...</textarea>
                     <input class="btn row col-2-sm" type="submit" value="Post">
                 </form>
+            </div>
+            <div>
+                <?php 
+                    connect();
+                    $sql = 'SELECT fname,content,datep FROM post natural join users order by datep desc';
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                    	while($row_cursor = $result->fetch_assoc()) { ?>
+		                    <div class="box">
+                            <p><?php echo $row_cursor['fname'] ?> posted on <?php echo $row_cursor['datep'] ?></p>
+                            <p> <?php echo $row_cursor['content'] ?></p>
+                            </div>
+	                    <?php 
+                        }
+                    }
+                ?>
+                <?php disconnect(); ?> 
             </div>
         </div>
 	</body>
