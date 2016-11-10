@@ -13,8 +13,16 @@ if (session_status() == PHP_SESSION_NONE) {
 		</echo><link rel="stylesheet" type="text/css" href="simple-grid.css">
         <link rel="stylesheet" type="text/css" href="main.css">
         <script>
+            var fieldValue = '';
             function clearContents(element) {
-                element.value = '';
+                fieldValue = element.value;
+                if(fieldValue == "What's on your mind...")
+                    {element.value = '';}
+            }
+            function addContents(element) {
+                if(element.value.length == 0) {
+                    element.value = fieldValue;
+                }
             }
         </script>
 	</head>
@@ -31,12 +39,14 @@ if (session_status() == PHP_SESSION_NONE) {
             <span class=""><a href="#">Feed</a></span>
 			<span class=""><a href="posts.html">Posts</a></span>
             <span class=""><a href="photos.html">Photos</a></span>
-            <span class=""><a href="events.html">Events</a></span>
+            <span class=""><a href="events.php">Events</a></span>
 		</div>
-        <div id="middlecontent">
+        <div class="middle-content">
             <div id="newposttextdiv">
                 <form id="addpostform" method="POST" action="addPost.php">
-                    <textarea id="newposttext" class="row" name="postcontent" onfocus="clearContents(this);">What's on your mind...</textarea>
+                    <textarea id="newposttext" class="row" name="postcontent" 
+                                onfocus="clearContents(this);"
+                                onblur="addContents(this)">What's on your mind...</textarea>
                     <input class="btn row col-2-sm" type="submit" value="Post">
                 </form>
             </div>

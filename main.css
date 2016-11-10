@@ -50,6 +50,9 @@ nav {
 .sidenav a {
     text-decoration: none;
 }
+.sidenav a:hover{
+    text-decoration: underline;
+}
 .empty-row {
     height:16px;
 }
@@ -80,7 +83,7 @@ nav {
         display: block;
         transition: 0.3s;
     }
-    #middlecontent {
+    .middle-content {
         margin-left: 17%;
         margin-right:35%;
         
