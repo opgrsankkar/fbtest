@@ -6,13 +6,17 @@ include 'dbconn.php';
 
 connect();
 $curr_date_time = date("Y-m-d H:i:s");
-$u_id=$_SESSION['USER_ID'];
+$u_id=$_SESSION['user_id'];
 $viewershipphp='friends';
-$contents = $_POST['content'];
+$contents = $_POST['postcontent'];
 
 
 $stmt = $conn->prepare("INSERT INTO post (user_id, add_date,content,viewership) VALUES( ?, ?, ?, ?)");
-$stmt->bind_param("issssss", $u_id, $curr_date_time,$contents,$viewershipphp);
+$stmt->bind_param("isss",
+    $u_id, 
+    $curr_date_time,
+    $contents,
+    $viewershipphp);
 
 
 if ($stmt->execute() === TRUE) {
