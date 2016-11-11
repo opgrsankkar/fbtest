@@ -23,6 +23,7 @@ if (session_status() == PHP_SESSION_NONE) {
             function addContents(element) {
                 if(element.value.length == 0 && fieldValue == "What's on your mind...") {
                     element.value = fieldValue;
+                    if9element.value
                 }
             }
         </script>
