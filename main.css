@@ -153,5 +153,15 @@ nav {
         width : auto;
         height : auto;
     }
-    
+    .display-friends{
+        
+        display : block;
+        padding : 2px;
+        font-family : sans-serif;
+        background-color : white;
+        margin-left : 20%;
+        margin-right : 20%;
+
+    }
+
 }
