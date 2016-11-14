@@ -5,6 +5,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 	if($_SESSION['fname']==''){header('Location:login.php');}
 }
+$user_id = $_SESSION[''];
 ?>
 <!DOCTYPE html>
 <html>
