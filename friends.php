@@ -28,6 +28,8 @@ if (session_status() == PHP_SESSION_NONE) {
             <span class=""><a href="photos.php">Photos</a></span>
             <span class=""><a href="events.php">Events</a></span>
 		</div>
-        
+        <div class="display-friends">
+            <span class="row"></span>
+            if
     </body>
 </html>
