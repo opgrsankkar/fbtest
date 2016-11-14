@@ -19,7 +19,7 @@ if (session_status() == PHP_SESSION_NONE) {
             <span class="col-1-sm"></span>
             <span class="col-2-sm">F.R.I.E.N.D.S</span>
             <span class="col-3-sm">
-                 <textarea id="Search" class="row" name="Search users.." tabindex="2" placeholder="Search.."></textarea>
+                 <textarea id="Search" class="row" name="Searchusers.." tabindex="2" placeholder="Search.."></textarea>
             </span>
             <span class="col-6-sm"></span>
             <span id="navbarname" class="col-1-sm"><?php echo $_SESSION['fname']?></span>
