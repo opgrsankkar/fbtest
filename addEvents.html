@@ -6,19 +6,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="simple-grid.css">
         <link rel="stylesheet" type="text/css" href="main.css">
-        <script>
-            var fieldValue = '';
-            function clearContents(element) {
-                fieldValue = element.value;
-                if(fieldValue == "1000 characters limit")
-                    {element.value = '';}
-            }
-            function addContents(element) {
-                if(element.value.length == 0) {
-                    element.value = fieldValue;
-                }
-            }
-        </script>
     </head>
     <body>
         <nav class="row">
@@ -55,9 +42,7 @@
                 <div id="event_description_div" class="row">
                     <span class="col-3"></span>
                     <label class="col-3" id="event_description_label" for="event_description">Description</label>
-                    <textarea id="event_description" class="col-5" name="event_description" maxlength="990" 
-                                onfocus="clearContents(this);"
-                                onblur="addContents(this)">1000 characters limit</textarea>
+                    <textarea id="event_description" class="col-5" name="event_description" maxlength="990" placeholder="Describe your Event...">
                 </div>
                 <div id="Event Div" class="row">
                     <span class="col-8"></span>

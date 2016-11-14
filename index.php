@@ -13,25 +13,14 @@ if (session_status() == PHP_SESSION_NONE) {
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		</echo><link rel="stylesheet" type="text/css" href="simple-grid.css">
         <link rel="stylesheet" type="text/css" href="main.css">
-        <script>
-            var fieldValue = '';
-            function clearContents(element) {
-                fieldValue = element.value;
-                if(fieldValue == "What's on your mind...")
-                    {element.value = '';}
-            }
-            function addContents(element) {
-                if(element.value.length == 0 && fieldValue == "What's on your mind...") {
-                    element.value = fieldValue;
-                    if9element.value
-                }
-            }
-        </script>
 	</head>
 	<body>
 		<nav class="row">
             <span class="col-1-sm"></span>
             <span class="col-2-sm">F.R.I.E.N.D.S</span>
+            <span class="col-3-sm">
+                 <textarea id="Search" class="row" name="Search users.." tabindex="2" placeholder="Search.."></textarea>
+            </span>
             <span class="col-6-sm"></span>
             <span id="navbarname" class="col-1-sm"><?php echo $_SESSION['fname']?></span>
             <span class="col-1-sm"></span>
@@ -42,13 +31,12 @@ if (session_status() == PHP_SESSION_NONE) {
 			<span class=""><a href="posts.html">Posts</a></span>
             <span class=""><a href="photos.html">Photos</a></span>
             <span class=""><a href="events.php">Events</a></span>
+            <span class=""><a href="friends.php">Friends</a></span>
 		</div>
         <div class="middle-content">
             <div id="newposttextdiv">
                 <form id="addpostform" method="POST" action="addPost.php">
-                    <textarea id="newposttext" class="row" name="postcontent" tabindex="1"
-                                onfocus="clearContents(this);"
-                                onblur="addContents(this)">What's on your mind...</textarea>
+                    <textarea id="newposttext" class="row" name="postcontent" tabindex="1" placeholder ="What's on your mind..."></textarea>
                     <input class="btn row col-2-sm" type="submit" value="Post" tabindex="2">
                 </form>
             </div>
