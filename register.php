@@ -6,9 +6,9 @@ $lastname=$_POST['lastname'];
 $pass=$_POST['pass'];
 $email=$_POST['email'];
 $dob=$_POST['dob'];
+$user_id = (microtime(true))*1000;
 
-
-$sql="INSERT INTO users(fname,lname,password,email,dob) VALUES('$firstname','$lastname','$pass','$email','$dob')";
+$sql="INSERT INTO users(user_id,fname,lname,password,email,dob) VALUES($user_id,'$firstname','$lastname','$pass','$email','$dob')";
 
 connect();
 if ($conn->query($sql) === TRUE) {
