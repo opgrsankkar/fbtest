@@ -5,7 +5,7 @@ function before($post_date){
         return "less than a minute ago";
     }
     elseif (($curr_date - $post_date) < 60*60) {
-        return "in the last hour";
+        return "few minutes ago";
     }
     elseif ((($curr_date - $post_date) < 60*60*24)) {
         return "today";

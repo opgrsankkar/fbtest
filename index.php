@@ -16,18 +16,6 @@ if (session_status() == PHP_SESSION_NONE) {
         <link rel="stylesheet" type="text/css" href="main.css">
         <script src="jquery-3.1.0.min.js"></script>
         <script>
-            var fieldValue = '';
-            function clearContents(element) {
-                fieldValue = element.value;
-                if(fieldValue == "What's on your mind...")
-                    {element.value = '';}
-            }
-            function addContents(element) {
-                if(element.value.length == 0 && fieldValue == "What's on your mind...") {
-                    element.value = fieldValue;
-                    if9element.value
-                }
-            }
             function postOptions(option, post_id) {
                 if(option=='deletePost'){
                     var r = confirm("Sure to delete the post?");
@@ -59,11 +47,15 @@ if (session_status() == PHP_SESSION_NONE) {
 		</div>
         <div class="middle-content">
             <div id="newposttextdiv">
-                <form id="addpostform" method="POST" action="addPost.php">
-                    <textarea id="newposttext" class="row" name="postcontent" tabindex="1"
-                                onfocus="clearContents(this);"
-                                onblur="addContents(this)">What's on your mind...</textarea>
-                    <input class="btn row col-2-sm" type="submit" value="Post" tabindex="2">
+                <form id="addpostform" method="POST" action="addPost.php" enctype="multipart/form-data">
+                    <textarea id="newposttext" class="row" name="postcontent" tabindex="1" placeholder="What's on your mind..."></textarea>
+                    <div id="post-upload-div" class="row">  
+                        <input class="btn col-2-sm" type="submit" value="Post" tabindex="2">
+                        <label class="fileContainer col-2-sm">
+                            <span class="upload-btn">Add Photos</span>
+                            <input type="file" name="uploaded[]" multiple/>
+                        </label>
+                    </div>
                 </form>
             </div>
             <div id="posts">

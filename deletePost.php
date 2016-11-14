@@ -12,7 +12,7 @@ $stmt = $conn->prepare("DELETE FROM post WHERE post_id = ?");
 $stmt->bind_param("i",$post_id);
 
 if ($stmt->execute() === TRUE) {
-	header('Location: index.php');
+	header('Location: '.$_SERVER['REQUEST_URI']);
 } else {
 	echo "Error: " . $sql . "<br>" . $conn->error;
 }
