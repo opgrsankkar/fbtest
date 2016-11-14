@@ -48,19 +48,7 @@ if (session_status() == PHP_SESSION_NONE) {
             <span class=""><a href="friends.php">Friends</a></span>
 		</div>
         <div class="middle-content">
-            <div id="newposttextdiv">
-                <form id="addpostform" method="POST" action="addPost.php" enctype="multipart/form-data">
-                    <textarea id="newposttext" class="row" name="postcontent" tabindex="1" placeholder="What's on your mind..."></textarea>
-                    <div id="post-upload-div" class="row">  
-                        <input class="btn col-2-sm" type="submit" value="Post" tabindex="2">
-                        <label class="fileContainer col-2-sm">
-                            <span class="upload-btn">Add Photos</span>
-                            <input type="file" name="uploaded[]" multiple/>
-                        </label>
-                    </div>
-                </form>
-            </div>
-            <div id="posts">
+            <div id="photosdiv">
                 <?php 
                     connect();
                     $sql = 'SELECT post_id,fname,lname,content,UNIX_TIMESTAMP(add_date) AS add_date FROM post NATURAL JOIN users ORDER BY add_date DESC';
