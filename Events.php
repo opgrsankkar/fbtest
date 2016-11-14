@@ -24,8 +24,8 @@ if (session_status() == PHP_SESSION_NONE) {
         </nav>
 		<div id="sidenav" class="sidenav">
             <span class=""><a href="index.php">Feed</a></span>
-			<span class=""><a href="posts.html">Posts</a></span>
-            <span class=""><a href="photos.html">Photos</a></span>
+			<span class=""><a href="post.php">Posts</a></span>
+            <span class=""><a href="photos.php">Photos</a></span>
             <span class=""><a href="events.php">Events</a></span>
 		</div>
         <div class="middle-content">

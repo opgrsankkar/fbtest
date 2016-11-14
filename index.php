@@ -41,7 +41,7 @@ if (session_status() == PHP_SESSION_NONE) {
         </nav>
 		<div id="sidenav" class="sidenav">
             <span class=""><a href="#">Feed</a></span>
-			<span class=""><a href="posts.php">Posts</a></span>
+			<span class=""><a href="post.php">Posts</a></span>
             <span class=""><a href="photos.php">Photos</a></span>
             <span class=""><a href="events.php">Events</a></span>
             <span class=""><a href="friends.php">Friends</a></span>

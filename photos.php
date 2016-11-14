@@ -5,37 +5,24 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 	if($_SESSION['fname']==''){header('Location:login.php');}
 }
+
 $user_id = $_SESSION['user_id'];
 ?>
-<!DOCTYPE html>
+<!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		</echo><link rel="stylesheet" type="text/css" href="simple-grid.css">
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="simple-grid.css">
         <link rel="stylesheet" type="text/css" href="main.css">
         <script src="jquery-3.1.0.min.js"></script>
-        <script>
-            function postOptions(option, post_id) {
-                if(option=='deletePost'){
-                    var r = confirm("Sure to delete the post?");
-                    if (r == true) {
-                        $.post("deletePost.php",{ p_id: post_id });
-                    } else {
-                        window.location.href = "index.php";                        
-                    }
-                } else if (option=='editPost') {
-                    window.location.href = "editPost.html";
-                }
-            }
-        </script>
-	</head>
-	<body>
-		<nav class="row">
-            <span class="col-1-sm"></span>
+    </head>
+
+    <body>
+    <nav class="row">
+    <span class="col-1-sm"></span>
             <span class="col-2-sm">F.R.I.E.N.D.S</span>
-        
             <span class="col-6-sm"></span>
             <span id="navbarname" class="col-1-sm"><?php echo $_SESSION['fname']?></span>
             <span class="col-1-sm"></span>
@@ -64,3 +51,4 @@ $user_id = $_SESSION['user_id'];
         </div>
 	</body>
 </html>
+
