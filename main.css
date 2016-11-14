@@ -144,4 +144,14 @@ nav {
         margin-right:35%;
         
     }
+
+   
+    .photo-display {
+        padding: 5px;
+        max-width : 45%;
+        max-height : 45%;
+        width : auto;
+        height : auto;
+    }
+    
 }
