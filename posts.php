@@ -30,6 +30,26 @@ $visiting_id = $_GET['v_id'];
                     window.location.href = "editPost.html";
                 }
             }
+            function friendStatusMouseOver()
+            {
+                var buttonContent = document.getElementById("friend_status").innerHTML.trim();
+                if(buttonContent == "Request Sent"){
+                    document.getElementById("friend_status").innerHTML = "Delete Request";
+                }
+                if(buttonContent == "Friends :)"){
+                    statusButton.innerHTML = "Unfriend";
+                }
+            }
+            function friendStatusMouseOut()
+            {
+                var buttonContent = document.getElementById("friend_status").innerHTML.trim();
+                if(buttonContent == "Delete Request"){
+                    document.getElementById("friend_status").innerHTML = "Request Sent";
+                }
+                if(buttonContent == "Unfriend"){
+                    statusButton.innerHTML = "Friends :)";
+                }
+            }
         </script>
 	</head>
 	<body>
@@ -59,10 +79,28 @@ $visiting_id = $_GET['v_id'];
                     	while($row_cursor_profile = $resultprofile->fetch_assoc()) { ?>
                             <span id="profile-name" class="col-8"><?= $row_cursor_profile['fname']?> <?= $row_cursor_profile['lname'] ?>'s Profile</span>
                             <form method="post" action="addFriend.php">
-                                <input type="text" name="req_reciever_id" value="<?= $visiting_id?>" hidden>
-                                <button class="col-3" type="submit"<?php if($visiting_id==$user_id) {echo "hidden";}?>>
+                                <input type="text" name="receiver_id" value="<?= $visiting_id ?>" hidden>
+                                <input type="text" name="sender_id" value="<?= $user_id ?>" hidden>
+                                <button id="friend_status" onmouseover="friendStatusMouseOver()" onmouseout="friendStatusMouseOut()" class="col-3" type="submit"<?php if($visiting_id==$user_id) {echo "hidden";}?>>
                                     <?php
-                                        echo "Friend Indicator";
+                                        $sql = "SELECT accept_date FROM friends WHERE user_id1=".$visiting_id." and user_id2=".$user_id;
+                                        $result = $conn->query($sql);
+                                        if ($result->num_rows > 0) {
+                                            while($row = $result->fetch_assoc()) {
+		                                        if($row['accept_date']==NULL){echo "Accept Request";}
+                                                else {echo "Friends :)";}
+                                            }
+                                        } else {
+                                            $sql = "SELECT accept_date FROM friends WHERE user_id1=".$user_id." and user_id2=".$visiting_id;
+                                            $result = $conn->query($sql);
+                                            if ($result->num_rows == 0) {echo "Add Friend";}
+                                            else {
+                                                while($row = $result->fetch_assoc()) {
+                                                    if($row['accept_date']==NULL){echo "Request Sent";}
+                                                    else {echo "Friends :)";}
+                                                }
+                                            }
+                                        }
                                     ?>
                                 </button>
                             </form>
