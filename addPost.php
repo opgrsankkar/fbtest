@@ -86,4 +86,5 @@ for($i = 0; $i < count($_FILES['uploaded']['tmp_name']); $i++){
 }
 }
 disconnect();
+header("Location: index.php");
 ?>

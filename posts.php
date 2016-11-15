@@ -5,7 +5,8 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 	if($_SESSION['fname']==''){header('Location:login.php');}
 }
-$user_id = $_SESSION[''];
+$user_id = $_SESSION['user_id'];
+$visiting_id = $_GET['v_id'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,37 +42,46 @@ $user_id = $_SESSION[''];
             <span id="logoutbtn" class="col-1-sm"><a href="logout.php" tabindex="-1">!</a></span>
         </nav>
 		<div id="sidenav" class="sidenav">
-            <span class=""><a href="#">Feed</a></span>
-			<span class=""><a href="posts.php">Posts</a></span>
+            <span class=""><a href="index.php">Feed</a></span>
+			<span class=""><a href="posts.php?v_id=<?= $user_id?>">Posts</a></span>
             <span class=""><a href="photos.php">Photos</a></span>
             <span class=""><a href="events.php">Events</a></span>
             <span class=""><a href="friends.php">Friends</a></span>
 		</div>
         <div class="middle-content">
-            <div style="height:10px;"></div>
-            <div id="newposttextdiv">
-                <form id="addpostform" method="POST" action="addPost.php" enctype="multipart/form-data">
-                    <textarea id="newposttext" class="row" name="postcontent" tabindex="1" placeholder="What's on your mind..."></textarea>
-                    <div id="post-upload-div" class="row">  
-                        <input class="btn col-2-sm" type="submit" value="Post" tabindex="2">
-                        <label class="fileContainer col-2-sm">
-                            <span class="upload-btn">Add Photos</span>
-                            <input type="file" name="uploaded[]" multiple/>
-                        </label>
-                    </div>
-                </form>
+            <div id="profile-header" class="row">
+                <?php 
+                    connect();
+                    $sqlprofile = "SELECT fname,lname FROM users WHERE user_id=".$visiting_id;
+                    $resultprofile = $conn->query($sqlprofile);
+
+                    if ($resultprofile->num_rows > 0) {
+                    	while($row_cursor_profile = $resultprofile->fetch_assoc()) { ?>
+                            <span id="profile-name" class="col-8"><?= $row_cursor_profile['fname']?> <?= $row_cursor_profile['lname'] ?>'s Profile</span>
+                            <form method="post" action="addFriend.php">
+                                <input type="text" name="req_reciever_id" value="<?= $visiting_id?>" hidden>
+                                <button class="col-3" type="submit"<?php if($visiting_id==$user_id) {echo "hidden";}?>>
+                                    <?php
+                                        echo "Friend Indicator";
+                                    ?>
+                                </button>
+                            </form>
+                        <?php }
+                    }?>
             </div>
             <div id="posts">
                 <?php 
                     connect();
-                    $sql = 'SELECT post_id,fname,lname,content,UNIX_TIMESTAMP(add_date) AS add_date FROM post NATURAL JOIN users ORDER BY add_date DESC';
+                    $sql = "SELECT post_id,user_id,fname,lname,content,UNIX_TIMESTAMP(add_date) AS add_date FROM post NATURAL JOIN users WHERE user_id=".$visiting_id." ORDER BY add_date DESC";
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {
                     	while($row_cursor = $result->fetch_assoc()) { ?>
 		                    <div class="box">
-                                <p> <span class="posted-by"><?= $row_cursor['fname'] ?> </span>
-                                    <span class="posted-by"> <?= $row_cursor['lname'] ?> </span>
+                                <p> <a href="posts.php?v_id=<?= $row_cursor['user_id'] ?>">
+                                        <span class="posted-by"><?= $row_cursor['fname'] ?> </span>
+                                        <span class="posted-by"> <?= $row_cursor['lname'] ?> </span>
+                                    </a>
                                     <span class="posted-on"> <?= before($row_cursor['add_date']) ?></span>
                                     <?php $post_id=$row_cursor['post_id']; ?>
                                     <span class="col-1">

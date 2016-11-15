@@ -5,6 +5,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 	if($_SESSION['fname']==''){header('Location:login.php');}
 }
+$user_id = $_SESSION['user_id'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,13 +42,12 @@ if (session_status() == PHP_SESSION_NONE) {
         </nav>
 		<div id="sidenav" class="sidenav">
             <span class=""><a href="#">Feed</a></span>
-			<span class=""><a href="post.php">Posts</a></span>
+			<span class=""><a href="posts.php?v_id=<?= $user_id ?>">Posts</a></span>
             <span class=""><a href="photos.php">Photos</a></span>
             <span class=""><a href="events.php">Events</a></span>
             <span class=""><a href="friends.php">Friends</a></span>
 		</div>
         <div class="middle-content">
-            <div style="height:10px;"></div>
             <div id="newposttextdiv">
                 <form id="addpostform" method="POST" action="addPost.php" enctype="multipart/form-data">
                     <textarea id="newposttext" class="row" name="postcontent" tabindex="1" placeholder="What's on your mind..."></textarea>
@@ -63,14 +63,14 @@ if (session_status() == PHP_SESSION_NONE) {
             <div id="posts">
                 <?php 
                     connect();
-                    $sql = 'SELECT post_id,fname,lname,content,UNIX_TIMESTAMP(add_date) AS add_date FROM post NATURAL JOIN users ORDER BY add_date DESC';
+                    $sql = 'SELECT post_id,user_id,fname,lname,content,UNIX_TIMESTAMP(add_date) AS add_date FROM post NATURAL JOIN users ORDER BY add_date DESC';
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {
                     	while($row_cursor = $result->fetch_assoc()) { ?>
 		                    <div class="box">
-                                <p> <span class="posted-by"><?= $row_cursor['fname'] ?> </span>
-                                    <span class="posted-by"> <?= $row_cursor['lname'] ?> </span>
+                                <p> <a href="posts.php?v_id=<?= $row_cursor['user_id'] ?>"><span class="posted-by"><?= $row_cursor['fname'] ?> </span>
+                                    <span class="posted-by"> <?= $row_cursor['lname'] ?> </span> </a>
                                     <span class="posted-on"> <?= before($row_cursor['add_date']) ?></span>
                                     <?php $post_id=$row_cursor['post_id']; ?>
                                     <span class="col-1">
