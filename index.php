@@ -16,6 +16,9 @@ $user_id = $_SESSION['user_id'];
 		<link rel="stylesheet" type="text/css" href="simple-grid.css">
         <link rel="stylesheet" type="text/css" href="main.css">
         <script src="jquery-3.1.0.min.js"></script>
+        <style>
+            html, body {margin: 0; height: 100%; overflow: hidden}
+        </style>
         <script>
             function postOptions(option, post_id) {
                 if(option=='deletePost'){
@@ -31,7 +34,7 @@ $user_id = $_SESSION['user_id'];
             }
         </script>
 	</head>
-	<body>
+	<body class="row">
 		<nav class="row">
             <span class="col-1-sm"></span>
             <span class="col-2-sm">F.R.I.E.N.D.S</span>
@@ -46,8 +49,10 @@ $user_id = $_SESSION['user_id'];
             <span class=""><a href="photos.php">Photos</a></span>
             <span class=""><a href="events.php">Events</a></span>
             <span class=""><a href="friends.php">Friends</a></span>
+            <span class="shouts-link"><a href="shouts.php">Shouts</a></span>
 		</div>
-        <div class="middle-content">
+        <div class="col-2"></div>
+        <div class="col-5 middle-content">
             <div id="newposttextdiv">
                 <form id="addpostform" method="POST" action="addPost.php" enctype="multipart/form-data">
                     <textarea id="newposttext" class="row" name="postcontent" tabindex="1" placeholder="What's on your mind..."></textarea>
@@ -99,6 +104,13 @@ $user_id = $_SESSION['user_id'];
                     }
                 ?>
                 <?php disconnect(); ?> 
+            </div>
+        </div>
+        <div class="col-1"></div>
+        <div id="right-content" class="col-4">
+            <div class="row" style="height:100px;"></div>
+            <div class="row">
+                <iframe src="shouts.php" height="500px" frameBorder="0"></iframe>
             </div>
         </div>
 	</body>

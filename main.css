@@ -108,7 +108,29 @@ nav {
   border-radius: 4px;
   
 }
+.shouts{
+    background: floralwhite;
+    border: 1px solid black;
+    width:99%;
+    height:300px;
+    overflow-y: scroll;
+}
+.photo-display {
+        padding: 5px;
+        max-width : 45%;
+        max-height : 45%;
+        width : auto;
+        height : auto;
+    }
+.shout-time {
+        display: block;
+        font-weight:800;
+        font-size:.75em;
+}
 
+/*.right-content{
+    display: none;
+}*/
 @media only screen and (min-width: 45em){ /* 720 */
     #navbarname{
         display: block;
@@ -146,13 +168,6 @@ nav {
         padding-top: 10px;
         
     }
-    .photo-display {
-        padding: 5px;
-        max-width : 45%;
-        max-height : 45%;
-        width : auto;
-        height : auto;
-    }
     .display-friends{
         
         display : block;
@@ -169,4 +184,20 @@ nav {
     #profile-header {
         font-size: 1.5em;
     }
+    .shout-time {
+        display: inline;
+        float: right;
+        font-weight:800;
+        font-size:.5em;
+    }
+    .shouts-link{
+        display:none;
+    }
+    /*.right-content{
+        position: absolute;
+    }*/
+    /*#right-content{
+        position:fixed;
+        margin
+    }*/
 }

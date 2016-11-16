@@ -6,7 +6,6 @@ include 'dbconn.php';
 
 connect();
 $sql = "SELECT user_id,fname,lname,email,dob FROM users where email='".$_POST['email']."' and password='".$_POST['pass']."';";
-echo '<p>'.$sql.'</p>';
 $result = $conn->query($sql);
 
 if ($result->num_rows == 1) {
@@ -19,7 +18,8 @@ if ($result->num_rows == 1) {
     header('Location: index.php');
 }
 else {
-    echo '<p>Login Failed</p>';
+    echo '<p>Login Failed.<br>Incorrect Username/Password</p>';
+    echo '<p><a href="login.php?e='.$_POST['email'].'">Try Again</a></p>';
     echo '<p><a href="register.html">Create new Account?</a></p>';
 }
 

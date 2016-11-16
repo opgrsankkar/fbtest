@@ -27,7 +27,7 @@ if (session_status() == PHP_SESSION_NONE) {
                         <div id="emaildiv" class="row">
                                 <span class="col-8"></span>
                                 <label id="emaillabel" for="email" class="col-1">Email</label>
-								<input id="email" class="col-2" type="text" name="email">
+								<input id="email" class="col-2" type="text" name="email" value="<?php if(isset($_GET['e'])) {echo $_GET['e'];}?>">
 						</div>
                         <div id="passdiv" class="row">
                                 <span class="col-8"></span>
