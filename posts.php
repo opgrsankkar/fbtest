@@ -6,7 +6,10 @@ if (session_status() == PHP_SESSION_NONE) {
 	if($_SESSION['fname']==''){header('Location:login.php');}
 }
 $user_id = $_SESSION['user_id'];
-$visiting_id = $_GET['v_id'];
+$visiting_id = 0;
+if(isset($_GET['v_id'])){
+    $visiting_id = $_GET['v_id'];
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -116,13 +119,11 @@ $visiting_id = $_GET['v_id'];
                     if ($result->num_rows > 0) {
                     	while($row_cursor = $result->fetch_assoc()) { ?>
 		                    <div class="box">
-                                <p> <a href="posts.php?v_id=<?= $row_cursor['user_id'] ?>">
-                                        <span class="posted-by"><?= $row_cursor['fname'] ?> </span>
-                                        <span class="posted-by"> <?= $row_cursor['lname'] ?> </span>
-                                    </a>
-                                    <span class="posted-on"> <?= before($row_cursor['add_date']) ?></span>
+                                <p class="row"><span class="col-11-sm"><a href="posts.php?v_id=<?= $row_cursor['user_id'] ?>"><span class="posted-by"><?= $row_cursor['fname'] ?> </span>
+                                    <span class="posted-by"> <?= $row_cursor['lname'] ?> </span> </a>
+                                    <span class="posted-on"> <?= before($row_cursor['add_date']) ?></span></span>
                                     <?php $post_id=$row_cursor['post_id']; ?>
-                                    <span class="col-1">
+                                    <span class="col-1-sm">
                                         <select onchange="postOptions(this.value,<?= $post_id ?>)" class="post-options">
                                             <option value=""></option>
                                             <option value="deletePost">Delete Post</option></span>

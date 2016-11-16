@@ -1,7 +1,6 @@
 #logoutbtn {
     text-decoration: none;
-    text-align: center;
-}
+    text-align: center;}
 
 nav {
     background: linear-gradient(to bottom, #f1e867 0%, #feb445 100%);
@@ -11,8 +10,7 @@ nav {
     left: 0;
     top: 0;
     margin-top: 0;
-    margin-left: 0;
-}
+    margin-left: 0;}
 
 .btn {
     background: linear-gradient(to bottom, #f1e867, #feb445);
@@ -21,70 +19,54 @@ nav {
     font-weight: bolder;
     padding-top: 10px;
     padding-bottom: 10px;
-    text-decoration: none;
-}
+    text-decoration: none;}
 
 .btn:hover {
     background: linear-gradient(to bottom, #3cb0fd, #3498db);
     font-weight: thick;
-    text-decoration: none;
-}
+    text-decoration: none;}
 
 .btn:active {
     background: linear-gradient(to bottom, #2a75a3, #1a567d);
     font-weight: thick;
-    text-decoration: none;
-}
+    text-decoration: none;}
 
 #navbarname{
-    display: none;
-}
+    display: none;}
+
 .sidenav {
     background: linear-gradient(to bottom, moccasin, lavender);
     width: 100%;
-    text-align: center;
-    
-}
+    text-align: center;}
 .sidenav span {
-    width: 21%;
-}
+    width: 21%;}
 
 .sidenav a {
-    text-decoration: none;
-}
+    text-decoration: none;}
 .sidenav a:hover{
-    text-decoration: underline;
-}
+    text-decoration: underline;}
 .empty-row {
-    height:16px;
-}
+    height:16px;}
 .box {
-    box-shadow: 0px 3px 17px 0px rgba(0,0,0,0.75);
-}
+    box-shadow: 0px 3px 17px 0px rgba(0,0,0,0.75);}
 
 .posted-by {
-    font-weight: bold;
-}
+    font-weight: bold;}
 .posted-on {
     font-size: 75%;
-    font-weight: bolder;
-}
+    font-weight: bolder;}
 .post {
-    font-size: 115%;
-}
+    font-size: 115%;}
 .options-btn {
-    border:none;
-}
+    border:none;}
 .post-options {
-    float: right;
+    /*float: right;*/
     width: 16px;
     border: none;
-    text-align: center;
-}
+    text-align: center;}
 .fileContainer {
     /*overflow: hidden;*/
-    position: relative;
-}
+    position: relative;}
 
 .fileContainer [type=file] {
     /*cursor: inherit;*/
@@ -97,47 +79,42 @@ nav {
     /*position: absolute;*/
     /*right: 0;*/
     /*text-align: right;*/
-    /*top: 0;*/
-}
+    /*top: 0;*/}
 .upload-btn {
   font-family: Sans-serif;
   font-weight:600;
   border: 1px solid black;
   padding: 2px;
   background: linear-gradient(to bottom, #f1e867, #feb445);
-  border-radius: 4px;
-  
-}
+  border-radius: 4px;}
 .shouts{
     background: floralwhite;
     border: 1px solid black;
     width:99%;
     height:300px;
-    overflow-y: scroll;
-}
+    overflow-y: scroll;}
 .photo-display {
         padding: 5px;
         max-width : 45%;
         max-height : 45%;
         width : auto;
-        height : auto;
-    }
+        height : auto;}
 .shout-time {
         display: block;
         font-weight:800;
         font-size:.75em;
 }
 
-/*.right-content{
-    display: none;
-}*/
+@media only screen and (max-width: 22.5em){ /* 360 */
+    #right-content {
+        display: none;
+    }
+}
 @media only screen and (min-width: 45em){ /* 720 */
     #navbarname{
-        display: block;
-    }
+        display: block;}
     .empty-row {
-        height:32px;
-    }
+        height:32px;}
     .sidenav {
         /*background-color: linear-gradient(to bottom, #fff 0%, #999 30%, #fff 50%, #999 70%, #fff 100%);*/
         background: linear-gradient(to bottom, moccasin, lavender);
@@ -148,56 +125,37 @@ nav {
         top: 0;
         left: 0;
         overflow-x: hidden;
-        padding-top: 60px;
-    }
+        padding-top: 60px;}
     .sidenav a {
         padding: 8px 8px 8px 32px;
         text-decoration: none;
         display: block;
         color: black;
-        transition: .5s;
-    }
+        transition: .5s;}
     .sidenav a:hover{
         font-size: 1.25em;
         text-decoration: none;
-        color: brown;
-    }
+        color: brown;}
     .middle-content {
         margin-left: 17%;
         margin-right:35%;
-        padding-top: 10px;
-        
-    }
-    .display-friends{
-        
+        min-height:100%;
+        padding-top: 10px;}
+    .display-friends{   
         display : block;
         padding : 2px;
         font-family : sans-serif;
         background-color : white;
         margin-left : 20%;
-        margin-right : 20%;
-
-    }
+        margin-right : 20%;}
     #profile-header {
         padding-bottom: 10px;
-    }
-    #profile-header {
-        font-size: 1.5em;
-    }
+        font-size: 1.5em;}
     .shout-time {
         display: inline;
         float: right;
         font-weight:800;
-        font-size:.5em;
-    }
+        font-size:.5em;}
     .shouts-link{
-        display:none;
-    }
-    /*.right-content{
-        position: absolute;
-    }*/
-    /*#right-content{
-        position:fixed;
-        margin
-    }*/
+        display:none;}
 }

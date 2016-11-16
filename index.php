@@ -16,18 +16,10 @@ $user_id = $_SESSION['user_id'];
 		<link rel="stylesheet" type="text/css" href="simple-grid.css">
         <link rel="stylesheet" type="text/css" href="main.css">
         <script src="jquery-3.1.0.min.js"></script>
-        <style>
-            html, body {margin: 0; height: 100%; overflow: hidden}
-        </style>
         <script>
             function postOptions(option, post_id) {
                 if(option=='deletePost'){
-                    var r = confirm("Sure to delete the post?");
-                    if (r == true) {
-                        $.post("deletePost.php",{ p_id: post_id });
-                    } else {
-                        window.location.href = "index.php";                        
-                    }
+                        $.post("deletePost.php",{ p_id: post_id });                        
                 } else if (option=='editPost') {
                     window.location.href = "editPost.html";
                 }
@@ -52,7 +44,7 @@ $user_id = $_SESSION['user_id'];
             <span class="shouts-link"><a href="shouts.php">Shouts</a></span>
 		</div>
         <div class="col-2"></div>
-        <div class="col-5 middle-content">
+        <div class="col-6 middle-content">
             <div id="newposttextdiv">
                 <form id="addpostform" method="POST" action="addPost.php" enctype="multipart/form-data">
                     <textarea id="newposttext" class="row" name="postcontent" tabindex="1" placeholder="What's on your mind..."></textarea>
@@ -68,23 +60,29 @@ $user_id = $_SESSION['user_id'];
             <div id="posts">
                 <?php 
                     connect();
-                    $sql = 'SELECT post_id,user_id,fname,lname,content,UNIX_TIMESTAMP(add_date) AS add_date FROM post NATURAL JOIN users ORDER BY add_date DESC';
+                    $sql = 'SELECT post_id,user_id,fname,lname,content,UNIX_TIMESTAMP(add_date) as add_date FROM post NATURAL JOIN users where
+                        user_id in (select user_id2 as u_id FROM friends where (user_id1='.$user_id.') and ACCEPT_DATE is not null) or
+                        user_id in (select user_id1 as u_id FROM friends where (user_id2='.$user_id.') and ACCEPT_DATE is not null) or 
+                        user_id  in (select user_id as u_id from users where user_id='.$user_id.')
+                        ORDER BY add_date DESC';
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {
                     	while($row_cursor = $result->fetch_assoc()) { ?>
 		                    <div class="box">
-                                <p> <a href="posts.php?v_id=<?= $row_cursor['user_id'] ?>"><span class="posted-by"><?= $row_cursor['fname'] ?> </span>
+                                <p class="row"><span class="col-11-sm"><a href="posts.php?v_id=<?= $row_cursor['user_id'] ?>"><span class="posted-by"><?= $row_cursor['fname'] ?> </span>
                                     <span class="posted-by"> <?= $row_cursor['lname'] ?> </span> </a>
-                                    <span class="posted-on"> <?= before($row_cursor['add_date']) ?></span>
+                                    <span class="posted-on"> <?= before($row_cursor['add_date']) ?></span></span>
                                     <?php $post_id=$row_cursor['post_id']; ?>
-                                    <span class="col-1">
+                                    <?php
+                                    echo '<span class="col-1-sm">'
                                         <select onchange="postOptions(this.value,<?= $post_id ?>)" class="post-options">
                                             <option value=""></option>
                                             <option value="deletePost">Delete Post</option></span>
                                             <option value="editPost">Edit Post</option></span>
                                         </select>
                                     </span>
+                                    ?>
                                 </p>
                                 <p id="post_content" class="row post"> <?php echo $row_cursor['content'] ?></p>
                                 <div id="photos-div" class="row">

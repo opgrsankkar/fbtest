@@ -11,6 +11,8 @@ $curr_date_time = date("Y-m-d H:i:s");
 $u_id=$_SESSION['user_id'];
 $viewershipphp='friends';
 $contents = $_POST['postcontent'];
+if(trim($contents)!=''){
+    header("Location: index.php");
 
 
 $stmt = $conn->prepare("INSERT INTO post (post_id,user_id, add_date,content,viewership) VALUES(?, ?, ?, ?, ?)");
@@ -26,7 +28,7 @@ if ($stmt->execute() === TRUE) {
 } else {
 	echo "Error<br>" . $conn->error;
 }
-
+}
 // Upload Photos
 echo isset($_FILES['uploaded']['tmp_name']);
 echo "<br>";

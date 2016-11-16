@@ -35,7 +35,7 @@ $user_id = $_SESSION['user_id'];
         <div id="shouts-div" class="shouts">
             <?php
                 connect();
-                $sqlP = "SELECT fname,lname,content,UNIX_TIMESTAMP(add_date) as add_date FROM shout NATURAL JOIN users";
+                $sqlP = "SELECT user_id,fname,lname,content,UNIX_TIMESTAMP(add_date) as add_date FROM shout NATURAL JOIN users";
                 $resultP = $conn->query($sqlP);
                 if ($resultP->num_rows > 0) {
                     while($row_cursorP = $resultP->fetch_assoc()) { ?>
