@@ -5,16 +5,16 @@ if (session_status() == PHP_SESSION_NONE) {
 include 'dbconn.php';
 
 connect();
-$sql = "SELECT user_id,fname,lname,email,dob FROM users where email='".$_POST['email']."' and password='".$_POST['pass']."';";
+$sql = "SELECT USER_ID,FNAME,LNAME,EMAIL,DOB FROM USERS WHERE EMAIL='".$_POST['email']."' AND PASSWORD='".$_POST['pass']."';";
 $result = $conn->query($sql);
 
 if ($result->num_rows == 1) {
     $row = $result->fetch_assoc();
-    $_SESSION['user_id']=$row['user_id'];
-    $_SESSION['fname']=$row['fname'];
-    $_SESSION['lname']=$row['lname'];
-    $_SESSION['email']=$row['email'];
-    $_SESSION['dob']=$row['dob'];
+    $_SESSION['user_id']=$row['USER_ID'];
+    $_SESSION['fname']=$row['FNAME'];
+    $_SESSION['lname']=$row['LNAME'];
+    $_SESSION['email']=$row['EMAIL'];
+    $_SESSION['dob']=$row['DOB'];
     header('Location: index.php');
 }
 else {

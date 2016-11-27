@@ -1,12 +1,17 @@
 <?php
 include 'dbconn.php';
-if(isset($_FILES['uploaded']['tmp_name'])){
-    echo count($_FILES['uploaded']['tmp_name']).'<br>';
-for($i = 0; $i < count($_FILES['uploaded']['tmp_name']); $i++){
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+	if($_SESSION['fname']==''){header('Location:login.php');}
+}
+$user_id = $_SESSION['user_id'];
+
+if(isset($_FILES['dp_upload']['tmp_name'])){
+    echo count($_FILES['dp_upload']['tmp_name']).'<br>';
     $target = "photos/";
-    $f_name = (microtime(true))*10000 .'.'. end(explode(".", $_FILES['uploaded']['name'][$i]));
+    $f_name = $user_id .'.'. end(explode(".", $_FILES['dp_upload']['name']));
     $target = $target . $f_name;
-    $uploaded_size = $_FILES['uploaded']['size'][$i];
+    $uploaded_size = $_FILES['dp_upload']['size'];
     $ok=1;
 
     //This is our size condition
@@ -17,7 +22,7 @@ for($i = 0; $i < count($_FILES['uploaded']['tmp_name']); $i++){
 
     $types = array('image/jpeg', 'image/gif', 'image/png');
 
-    if (in_array($_FILES['uploaded']['type'][$i], $types)) {
+    if (in_array($_FILES['dp_upload']['type'], $types)) {
     // file is okay continue
     } else {
     $ok=0;
@@ -30,21 +35,21 @@ for($i = 0; $i < count($_FILES['uploaded']['tmp_name']); $i++){
 
     //If everything is ok we try to upload it
     else{
-    if(move_uploaded_file($_FILES['uploaded']['tmp_name'][$i], $target)){
+    if(move_uploaded_file($_FILES['dp_upload']['tmp_name'], $target)){
         connect();
-        $sql="INSERT INTO SAMPLE_UPLOAD(PH_ID) VALUES ('".$f_name."');";
+        $sql="UPDATE USERS SET DP='$f_name' WHERE USER_ID=$user_id;";
         if ($conn->query($sql) === TRUE) {
         echo "New Photo added";
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
         disconnect();
-    echo "The file ". basename( $_FILES['uploaded']['name'][$i]). " has been uploaded";
+    echo "The file ". basename( $_FILES['dp_upload']['name']). " has been uploaded";
     }
     else{
     echo "Sorry, there was a problem uploading your file.";
     }
     }
-}
+    if($ok=1){header('Location: posts.php?v_id='.$user_id);}
 }
 ?>

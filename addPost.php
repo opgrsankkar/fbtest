@@ -15,7 +15,7 @@ if(trim($contents)!=''){
     header("Location: index.php");
 
 
-$stmt = $conn->prepare("INSERT INTO post (post_id,user_id, add_date,content,viewership) VALUES(?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO POST (POST_ID,USER_ID, ADD_DATE,CONTENT,VIEWERSHIP) VALUES(?, ?, ?, ?, ?)");
 $stmt->bind_param("iisss",
     $post_time,
     $u_id, 
@@ -43,8 +43,8 @@ for($i = 0; $i < count($_FILES['uploaded']['tmp_name']); $i++){
     $ok=1;
 
     //This is our size condition
-    if ($uploaded_size > 2097152){
-    echo "Your file is too large. We have a 2MB limit.<br>";
+    if ($uploaded_size > 2097152*16){
+    echo "Your file is too large. We have a 32MB limit.<br>";
     $ok=0;
     }
 
@@ -65,7 +65,7 @@ for($i = 0; $i < count($_FILES['uploaded']['tmp_name']); $i++){
     else{
     if(move_uploaded_file($_FILES['uploaded']['tmp_name'][$i], $target)){
         connect();
-        $sql="INSERT INTO photos(photo_id,post_id,user_id,add_date,link,viewership) values (".
+        $sql="INSERT INTO PHOTOS(PHOTO_ID,POST_ID,USER_ID,ADD_DATE,LINK,VIEWERSHIP) VALUES (".
                     $t_stamp.",".
                     $post_time.",".
                     $u_id.",'".

@@ -66,40 +66,55 @@ if(isset($_GET['v_id'])){
         </nav>
 		<div id="sidenav" class="sidenav">
             <span class=""><a href="index.php">Feed</a></span>
-			<span class=""><a href="posts.php?v_id=<?= $user_id?>">Posts</a></span>
+			<span class=""><a href="posts.php?v_id=<?= $user_id ?>">Posts</a></span>
             <span class=""><a href="photos.php">Photos</a></span>
             <span class=""><a href="events.php">Events</a></span>
             <span class=""><a href="friends.php">Friends</a></span>
+            <span class="shouts-link"><a href="shouts.php">Shouts</a></span>
 		</div>
         <div class="middle-content">
             <div id="profile-header" class="row">
                 <?php 
                     connect();
-                    $sqlprofile = "SELECT fname,lname FROM users WHERE user_id=".$visiting_id;
+                    $sqlprofile = "SELECT FNAME,LNAME,DP FROM USERS WHERE USER_ID=$visiting_id";
                     $resultprofile = $conn->query($sqlprofile);
 
                     if ($resultprofile->num_rows > 0) {
                     	while($row_cursor_profile = $resultprofile->fetch_assoc()) { ?>
-                            <span id="profile-name" class="col-8"><?= $row_cursor_profile['fname']?> <?= $row_cursor_profile['lname'] ?>'s Profile</span>
+                        <?php
+                            $dplink = $row_cursor_profile['DP'];
+                            if($dplink==''){
+                                $dplink='"photos/empty_profile.png"';
+                            }
+                            else{
+                                $dplink='"photos/'.$row_cursor_profile['DP'].'"';
+                            }
+                        ?>
+                            <img class="col-2-sm box" src=<?= $dplink?> />
+                            <span id="profile-name" class="col-5"><?= $row_cursor_profile['FNAME']?> <?= $row_cursor_profile['LNAME'] ?>'s Profile</span>
                             <form method="post" action="addFriend.php">
                                 <input type="text" name="receiver_id" value="<?= $visiting_id ?>" hidden>
                                 <input type="text" name="sender_id" value="<?= $user_id ?>" hidden>
+                                <a class="" id="add_dp_button" class="col-3" href="adddp.php"<?php if($visiting_id!=$user_id) {echo "hidden";}?>>Change DP
+                                </a><br>
+                                <a class="" id="delete_dp_button" class="col-3" href="deletedp.php"<?php if($visiting_id!=$user_id) {echo "hidden";}?>>Delete DP
+                                </a>
                                 <button id="friend_status" onmouseover="friendStatusMouseOver()" onmouseout="friendStatusMouseOut()" class="col-3" type="submit"<?php if($visiting_id==$user_id) {echo "hidden";}?>>
                                     <?php
-                                        $sql = "SELECT accept_date FROM friends WHERE user_id1=".$visiting_id." and user_id2=".$user_id;
+                                        $sql = "SELECT ACCEPT_DATE FROM FRIENDS WHERE USER_ID1=".$visiting_id." AND USER_ID2=".$user_id;
                                         $result = $conn->query($sql);
                                         if ($result->num_rows > 0) {
                                             while($row = $result->fetch_assoc()) {
-		                                        if($row['accept_date']==NULL){echo "Accept Request";}
+		                                        if($row['ACCEPT_DATE']==NULL){echo "Accept Request";}
                                                 else {echo "Friends :)";}
                                             }
                                         } else {
-                                            $sql = "SELECT accept_date FROM friends WHERE user_id1=".$user_id." and user_id2=".$visiting_id;
+                                            $sql = "SELECT ACCEPT_DATE FROM FRIENDS WHERE USER_ID1=".$user_id." AND USER_ID2=".$visiting_id;
                                             $result = $conn->query($sql);
                                             if ($result->num_rows == 0) {echo "Add Friend";}
                                             else {
                                                 while($row = $result->fetch_assoc()) {
-                                                    if($row['accept_date']==NULL){echo "Request Sent";}
+                                                    if($row['ACCEPT_DATE']==NULL){echo "Request Sent";}
                                                     else {echo "Friends :)";}
                                                 }
                                             }
@@ -113,32 +128,47 @@ if(isset($_GET['v_id'])){
             <div id="posts">
                 <?php 
                     connect();
-                    $sql = "SELECT post_id,user_id,fname,lname,content,UNIX_TIMESTAMP(add_date) AS add_date FROM post NATURAL JOIN users WHERE user_id=".$visiting_id." ORDER BY add_date DESC";
+                    $sql = 'SELECT POST_ID,USER_ID,FNAME,LNAME,DP,CONTENT,UNIX_TIMESTAMP(ADD_DATE) AS ADD_DATE FROM POST NATURAL JOIN USERS WHERE
+                        USER_ID ='.$visiting_id.' AND (
+                        USER_ID IN (SELECT USER_ID2 AS U_ID FROM FRIENDS WHERE (USER_ID1='.$user_id.') AND ACCEPT_DATE IS NOT NULL) OR
+                        USER_ID IN (SELECT USER_ID1 AS U_ID FROM FRIENDS WHERE (USER_ID2='.$user_id.') AND ACCEPT_DATE IS NOT NULL) OR 
+                        USER_ID IN (SELECT USER_ID AS U_ID FROM USERS WHERE USER_ID='.$user_id.'))
+                        ORDER BY ADD_DATE DESC';
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {
                     	while($row_cursor = $result->fetch_assoc()) { ?>
+                        <?php
+                            $dplink = $row_cursor['DP'];
+                            if($dplink==''){
+                                $dplink='"photos/empty_profile.png"';
+                            }
+                            else{
+                                $dplink='"photos/'.$row_cursor['DP'].'"';
+                            }
+                        ?>
 		                    <div class="box">
-                                <p class="row"><span class="col-11-sm"><a href="posts.php?v_id=<?= $row_cursor['user_id'] ?>"><span class="posted-by"><?= $row_cursor['fname'] ?> </span>
-                                    <span class="posted-by"> <?= $row_cursor['lname'] ?> </span> </a>
-                                    <span class="posted-on"> <?= before($row_cursor['add_date']) ?></span></span>
-                                    <?php $post_id=$row_cursor['post_id']; ?>
+                                <p class="row">
+                                    <img class="col-2-sm box dp-in-post" src=<?= $dplink?> />
+                                    <span class="col-9-sm"><a href="posts.php?v_id=<?= $row_cursor['USER_ID'] ?>"><span class="posted-by"><?= $row_cursor['FNAME'] ?> </span>
+                                    <span class="posted-by"> <?= $row_cursor['LNAME'] ?> </span> </a>
+                                    <span class="posted-on"> <?= before($row_cursor['ADD_DATE']) ?></span></span>
+                                    <?php $post_id=$row_cursor['POST_ID']; ?>
                                     <span class="col-1-sm">
                                         <select onchange="postOptions(this.value,<?= $post_id ?>)" class="post-options">
                                             <option value=""></option>
                                             <option value="deletePost">Delete Post</option></span>
-                                            <option value="editPost">Edit Post</option></span>
                                         </select>
                                     </span>
                                 </p>
-                                <p id="post_content" class="row post"> <?php echo $row_cursor['content'] ?></p>
+                                <p id="post_content" class="row post"> <?php echo $row_cursor['CONTENT'] ?></p>
                                 <div id="photos-div" class="row">
                                     <?php 
-                                    $sqlP = "SELECT photo_id,link FROM photos where post_id='".$post_id."'";
+                                    $sqlP = "SELECT PHOTO_ID,LINK FROM PHOTOS WHERE POST_ID='".$post_id."'";
                                     $resultP = $conn->query($sqlP);
                                     if ($resultP->num_rows > 0) {
                                         while($row_cursorP = $resultP->fetch_assoc()) { ?>
-                                        <img class="photo-display" src="<?= 'photos/'.$row_cursorP['link'] ?>">
+                                        <img class="photo-display" src="<?= 'photos/'.$row_cursorP['LINK'] ?>">
                                     <?php
                                         }
                                     } ?>

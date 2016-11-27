@@ -6,6 +6,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="simple-grid.css">
         <link rel="stylesheet" type="text/css" href="main.css">
+        <script src="jquery-3.1.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                var date = new Date();
+
+                var day = date.getDate();
+                var month = date.getMonth() + 1;
+                var year = date.getFullYear();
+
+                if (month < 10) month = "0" + month;
+                if (day < 10) day = "0" + day;
+
+                var today = year + "-" + month + "-" + day;
+                $("#start_date").attr("value", today);
+                $("#end_date").attr("value",today);
+                $("#start_time").attr("value","00:00");
+                $("#end_time").attr("value","00:00");
+            });
+        </script>
     </head>
     <body>
         <nav class="row">
@@ -15,9 +34,11 @@
         </nav>
         <div id="sidenav" class="sidenav">
             <span class=""><a href="index.php">Feed</a></span>
-            <span class=""><a href="posts.html">Posts</a></span>
-            <span class=""><a href="photos.html">Photos</a></span>
+			<span class=""><a href="posts.php">Posts</a></span>
+            <span class=""><a href="photos.php">Photos</a></span>
             <span class=""><a href="events.php">Events</a></span>
+            <span class=""><a href="friends.php">Friends</a></span>
+            <span class="shouts-link"><a href="shouts.php">Shouts</a></span>
         </div>
         <div id="addEventDiv" class="middle-content">
             <div class="row"></div>
@@ -42,7 +63,7 @@
                 <div id="event_description_div" class="row">
                     <span class="col-3"></span>
                     <label class="col-3" id="event_description_label" for="event_description">Description</label>
-                    <textarea id="event_description" class="col-5" name="event_description" maxlength="990" placeholder="Describe your Event...">
+                    <textarea id="event_description" class="col-5" name="event_description" maxlength="990" placeholder="Describe your Event..."></textarea>
                 </div>
                 <div id="Event Div" class="row">
                     <span class="col-8"></span>

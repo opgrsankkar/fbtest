@@ -30,20 +30,21 @@ $user_id = $_SESSION['user_id'];
         </nav>
 		<div id="sidenav" class="sidenav">
             <span class=""><a href="index.php">Feed</a></span>
-			<span class=""><a href="posts.php">Posts</a></span>
+			<span class=""><a href="posts.php?v_id=<?= $user_id ?>">Posts</a></span>
             <span class=""><a href="photos.php">Photos</a></span>
             <span class=""><a href="events.php">Events</a></span>
             <span class=""><a href="friends.php">Friends</a></span>
+            <span class="shouts-link"><a href="shouts.php">Shouts</a></span>
 		</div>
         <div class="middle-content">
             <div id="photos-div" class="row">
                 <?php
                 connect();
-                $sqlP = "SELECT photo_id,link FROM photos where user_id = '".$user_id."'";
+                $sqlP = "SELECT PHOTO_ID,LINK FROM PHOTOS WHERE USER_ID = '".$user_id."'";
                 $resultP = $conn->query($sqlP);
                 if ($resultP->num_rows > 0) {
                     while($row_cursorP = $resultP->fetch_assoc()) { ?>
-                    <img class="photo-display box" src="<?= 'photos/'.$row_cursorP['link'] ?>">
+                    <img class="photo-display box" src="<?= 'photos/'.$row_cursorP['LINK'] ?>">
                 <?php
                     }
                     } disconnect();?>

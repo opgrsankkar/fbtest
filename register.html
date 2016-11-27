@@ -6,6 +6,22 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="simple-grid.css">
         <link rel="stylesheet" type="text/css" href="main.css">
+        <script src="jquery-3.1.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                var date = new Date();
+
+                var day = date.getDate();
+                var month = date.getMonth() + 1;
+                var year = date.getFullYear();
+
+                if (month < 10) month = "0" + month;
+                if (day < 10) day = "0" + day;
+
+                var today = year + "-" + month + "-" + day;       
+                $("#dob").attr("value", today);
+            });
+        </script>
 	</head>
 	<body>
         <nav class="row">
@@ -18,27 +34,27 @@
                 <div id="firstnamediv" class="row">
                     <span class="col-8"></span>
                     <label id="firstnamelabel" for="firstname" class="col-1">Firstname</label>
-                    <input id="firstname" class="col-2" type="text" name="firstname">
+                    <input id="firstname" class="col-2" type="text" name="firstname" pattern=".{2,}" title="Two or more characters">
                 </div>
                 <div id="lastnamediv" class="row">
                     <span class="col-8"></span>
                     <label id="lastnamelabel" for="lastname" class="col-1">Lastname</label>
-                    <input id="lastname" class="col-2" type="text" name="lastname">
+                    <input id="lastname" class="col-2" type="text" name="lastname" pattern=".{2,}" title="Two or more characters">
                 </div>
                 <div id="emaildiv" class="row">
                     <span class="col-8"></span>
                     <label id="emaillabel" for="email" class="col-1">Email</label>
-                    <input id="email" class="col-2" type="email" name="email">
+                    <input id="email" class="col-2" type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}" title="Email Format Incorrect">
                 </div>
                 <div id="passdiv" class="row">
                     <span class="col-8"></span>
                     <label id="passlabel" for="pass" class="col-1">Password</label>
-                    <input id="pass" class="col-2" type="password" name="pass">
+                    <input id="pass" class="col-2" type="password" name="pass" pattern=".{4,}" title="Four or more characters">
                 </div>
                 <div id="dobdiv" class="row">
                     <span class="col-8"></span>
                     <label id="doblabel" for="dob" class="col-1">DoB</label>
-                    <input id="dob" class="col-2" type="date" name="dob">
+                    <input id="dob" class="col-2" type="date" name="dob" />
                 </div>
                 <div id="loginbuttondiv" class="row">
                     <span class="col-8-sm"></span>

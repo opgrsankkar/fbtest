@@ -33,18 +33,98 @@ $user_id = $_SESSION['user_id'];
             <span class="shouts-link"><a href="shouts.php">Shouts</a></span>
 		</div>
         <div class="middle-content">
-            <div id="friends-div" class="row">
+        <div id="requests-div" class="row" style="padding-bottom:20px;">
+                <span id="profile-header">Pending Requests</span>
                 <?php
                 connect();
-                $sql = 'SELECT user_id,fname,lname FROM users where
-                        user_id in (select user_id2 as u_id FROM friends where (user_id1='.$user_id.') and ACCEPT_DATE is not null) OR
-                        user_id in (select user_id1 as u_id FROM friends where (user_id2='.$user_id.') and ACCEPT_DATE is not null)';
+                $sql = 'SELECT USER_ID,FNAME,LNAME,DP FROM USERS WHERE 
+                        USER_ID IN (SELECT USER_ID2 AS U_ID FROM FRIENDS WHERE (USER_ID1='.$user_id.') AND ACCEPT_DATE IS NULL) OR 
+                        USER_ID IN (SELECT USER_ID1 AS U_ID FROM FRIENDS WHERE (USER_ID2='.$user_id.') AND ACCEPT_DATE IS NULL)';
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     while($row_cursor = $result->fetch_assoc()) { ?>
-                    <div class="box photo-display">
-                            <a href="posts.php?v_id=<?= $row_cursor['user_id'] ?>"><span class="posted-by"><?= $row_cursor['fname'] ?> </span>
-                                    <span class="posted-by"> <?= $row_cursor['lname'] ?> </span> </a>
+                    <?php
+                            $dplink = $row_cursor['DP'];
+                            if($dplink==''){
+                                $dplink='"photos/empty_profile.png"';
+                            }
+                            else{
+                                $dplink='"photos/'.$row_cursor['DP'].'"';
+                            }
+                        ?>
+                    <div class="box row" style="margin: 10px;">
+                            <a href="posts.php?v_id=<?= $row_cursor['USER_ID'] ?>">
+                                <img class="col-2-sm box" src=<?= $dplink?> />
+                            </a>
+                            <a class-"col-9-sm" href="posts.php?v_id=<?= $row_cursor['USER_ID'] ?>">
+                                <span class="posted-by"><?= $row_cursor['FNAME'] ?> </span>
+                                <span class="posted-by"> <?= $row_cursor['LNAME'] ?> </span>
+                            </a>
+                    </div>
+                <?php
+                    }
+                } disconnect();?>
+            </div>
+            <div id="friends-div" class="row" style="padding-top:20px;">
+                <span id="profile-header">Your Friends</span>
+                <?php
+                connect();
+                $sql = 'SELECT USER_ID,FNAME,LNAME,DP FROM USERS WHERE
+                        USER_ID IN (SELECT USER_ID2 AS U_ID FROM FRIENDS WHERE (USER_ID1='.$user_id.') AND ACCEPT_DATE IS NOT NULL) OR
+                        USER_ID IN (SELECT USER_ID1 AS U_ID FROM FRIENDS WHERE (USER_ID2='.$user_id.') AND ACCEPT_DATE IS NOT NULL)';
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                    while($row_cursor = $result->fetch_assoc()) { ?>
+                    <?php
+                            $dplink = $row_cursor['DP'];
+                            if($dplink==''){
+                                $dplink='"photos/empty_profile.png"';
+                            }
+                            else{
+                                $dplink='"photos/'.$row_cursor['DP'].'"';
+                            }
+                        ?>
+                    <div class="box row" style="margin: 10px;">
+                            <a href="posts.php?v_id=<?= $row_cursor['USER_ID'] ?>">
+                                <img class="col-2-sm box" src=<?= $dplink?> />
+                            </a>
+                            <a class-"col-9-sm" href="posts.php?v_id=<?= $row_cursor['USER_ID'] ?>">
+                                <span class="posted-by"><?= $row_cursor['FNAME'] ?> </span>
+                                <span class="posted-by"> <?= $row_cursor['LNAME'] ?> </span>
+                            </a>
+                    </div>
+                <?php
+                    }
+                } disconnect();?>
+            </div>
+            <div id="others-div" class="row" style="padding-top:20px;">
+                <span id="profile-header">Other People</span>
+                <?php
+                connect();
+                $sql = 'SELECT USER_ID,FNAME,LNAME,DP FROM USERS WHERE USER_ID NOT IN (SELECT USER_ID FROM USERS WHERE
+                        USER_ID IN (SELECT USER_ID2 AS U_ID FROM FRIENDS WHERE USER_ID1='.$user_id.') OR
+                        USER_ID IN (SELECT USER_ID1 AS U_ID FROM FRIENDS WHERE USER_ID2='.$user_id.') OR
+                        USER_ID IN (SELECT USER_ID AS U_ID FROM USERS WHERE USER_ID='.$user_id.'))';
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                    while($row_cursor = $result->fetch_assoc()) { ?>
+                    <?php
+                            $dplink = $row_cursor['dp'];
+                            if($dplink==''){
+                                $dplink='"photos/empty_profile.png"';
+                            }
+                            else{
+                                $dplink='"photos/'.$row_cursor['DP'].'"';
+                            }
+                        ?>
+                    <div class="box row" style="margin: 10px;">
+                            <a href="posts.php?v_id=<?= $row_cursor['USER_ID'] ?>">
+                                <img class="col-2-sm box" src=<?= $dplink?> />
+                            </a>
+                            <a class-"col-9-sm" href="posts.php?v_id=<?= $row_cursor['USER_ID'] ?>">
+                                <span class="posted-by"><?= $row_cursor['FNAME'] ?> </span>
+                                <span class="posted-by"> <?= $row_cursor['LNAME'] ?> </span>
+                            </a>
                     </div>
                 <?php
                     }

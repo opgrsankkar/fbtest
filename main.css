@@ -1,3 +1,7 @@
+hr {
+    margin: 0px; 
+}
+
 #logoutbtn {
     text-decoration: none;
     text-align: center;}
@@ -45,11 +49,21 @@ nav {
     text-decoration: none;}
 .sidenav a:hover{
     text-decoration: underline;}
+
+
 .empty-row {
     height:16px;}
 .box {
     box-shadow: 0px 3px 17px 0px rgba(0,0,0,0.75);}
-
+.dp{
+    max-width:20%;
+    width:auto;
+    height:auto;
+}
+img.dp-in-post{
+    max-height: 2em;
+    width:auto;
+}
 .posted-by {
     font-weight: bold;}
 .posted-on {
@@ -105,10 +119,14 @@ nav {
         font-size:.75em;
 }
 
-@media only screen and (max-width: 22.5em){ /* 360 */
+@media only screen and (max-width: 35em){ /* 360 */
     #right-content {
         display: none;
     }
+    .sidenav .report-bug{
+        display: none;
+    }
+    
 }
 @media only screen and (min-width: 45em){ /* 720 */
     #navbarname{

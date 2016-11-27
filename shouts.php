@@ -35,14 +35,14 @@ $user_id = $_SESSION['user_id'];
         <div id="shouts-div" class="shouts">
             <?php
                 connect();
-                $sqlP = "SELECT user_id,fname,lname,content,UNIX_TIMESTAMP(add_date) as add_date FROM shout NATURAL JOIN users";
+                $sqlP = "SELECT USER_ID,FNAME,LNAME,CONTENT,UNIX_TIMESTAMP(ADD_DATE) AS ADD_DATE FROM SHOUT NATURAL JOIN USERS";
                 $resultP = $conn->query($sqlP);
                 if ($resultP->num_rows > 0) {
                     while($row_cursorP = $resultP->fetch_assoc()) { ?>
                     <p class="">
-                        <strong><?=$row_cursorP['fname']?> <?=$row_cursorP['lname']?></strong>
-                        <?= $row_cursorP['content']?>
-                        <span class="shout-time"><?= before($row_cursorP['add_date']) ?></span>
+                        <strong><?=$row_cursorP['FNAME']?> <?=$row_cursorP['LNAME']?></strong>
+                        <?= $row_cursorP['CONTENT']?>
+                        <span class="shout-time"><?= before($row_cursorP['ADD_DATE']) ?></span>
                     </p>
                 <?php
                     }

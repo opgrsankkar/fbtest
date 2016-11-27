@@ -18,7 +18,7 @@ $end_date_time = $_POST['end_date'].' '.$_POST['end_time'];
 echo $start_date_time;
 echo $end_date_time;
 
-$stmt = $conn->prepare("INSERT INTO Events (event_id,user_id, event_name, add_date, start_date, end_date, event_desc, viewership) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO EVENTS (EVENT_ID,USER_ID, EVENT_NAME, ADD_DATE, START_DATE, END_DATE, EVENT_DESC, VIEWERSHIP) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
 $stmt->bind_param("iissssss", $event_add_time, $u_id, $event_name, $curr_date_time, $start_date_time, $end_date_time, $event_desc, $viewershipphp);
 
 if ($stmt->execute() === TRUE) {
@@ -28,4 +28,5 @@ if ($stmt->execute() === TRUE) {
 }
 
 disconnect();
+header('Location: events.php');
 ?>
