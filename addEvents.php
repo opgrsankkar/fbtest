@@ -24,7 +24,7 @@ $stmt->bind_param("iissssss", $event_add_time, $u_id, $event_name, $curr_date_ti
 if ($stmt->execute() === TRUE) {
     echo "New Event added";
 } else {
-    echo "Error: " . $stmt . "<br>" . $conn->error;
+    echo "Error: <br>" . $conn->error;
 }
 
 disconnect();

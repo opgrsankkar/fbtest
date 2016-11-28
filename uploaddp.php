@@ -17,6 +17,7 @@ if(isset($_FILES['dp_upload']['tmp_name'])){
     //This is our size condition
     if ($uploaded_size > 2097152){
     echo "Your file is too large. We have a 2MB limit.<br>";
+    ?><script>alert("Your file is too large. We have a 2MB limit")</script><?php
     $ok=0;
     }
 

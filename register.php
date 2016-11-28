@@ -15,7 +15,7 @@ if ($conn->query($sql) === TRUE) {
 	echo "New User added";
 	header('Location: login.php?e='.$email);
 } else {
-	echo "Error: " . $sql . "<br>" . $conn->error;
+	echo "Error: User Exists<br>" . $conn->error;
 }
 disconnect();
 

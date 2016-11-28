@@ -17,9 +17,10 @@ $user_id = $_SESSION['user_id'];
         <link rel="stylesheet" type="text/css" href="main.css">
         <script src="jquery-3.1.0.min.js"></script>
         <script>
-            function postOptions(option, post_id) {
+            function postOptions(option, post_id, user_id) {
                 if(option=='deletePost'){
-                        $.post("deletePost.php",{ p_id: post_id });                        
+                        $.post("deletePost.php",{ p_id: post_id, u_id :user_id });
+                        // window.location.href = "index.php";
                 } else if (option=='editPost') {
                     window.location.href = "editPost.html";
                 }
@@ -44,7 +45,27 @@ $user_id = $_SESSION['user_id'];
 			<span class=""><a href="posts.php?v_id=<?= $user_id ?>">Posts</a></span>
             <span class=""><a href="photos.php">Photos</a></span>
             <span class=""><a href="events.php">Events</a></span>
-            <span class=""><a href="friends.php">Friends</a></span>
+            <span class=""><a href="friends.php">Friends
+                        <?php
+                            connect();
+                            $sqlcount = 'SELECT COUNT(USER_ID) AS P_F FROM USERS WHERE  
+                                USER_ID IN (SELECT USER_ID1 AS U_ID FROM FRIENDS WHERE (USER_ID2='.$user_id.') AND ACCEPT_DATE IS NULL)';
+                            $result = $conn->query($sqlcount);
+                            if ($result->num_rows > 0) {
+                                while($row_cursor = $result->fetch_assoc()) { 
+                                    $p_f = $row_cursor['P_F'];
+                                    if($p_f==0){
+                                        echo '';
+                                    }
+                                    else{
+                                        echo '<span class="badge">'.$row_cursor['P_F'].'</span>';
+                                    }
+                                }
+                            }
+                            disconnect();
+                            ?>    
+                </a>
+            </span>
             <span class="shouts-link"><a href="shouts.php">Shouts</a></span>
             <span class="report-bug"><a href="mailto:fbtests.reportbug@gmail.com?Subject=Bug%20Report%20on%20FRIENDS">Report Bug</a>
 		</div>
@@ -91,7 +112,7 @@ $user_id = $_SESSION['user_id'];
                                     <span class="posted-on"> <?= before($row_cursor['ADD_DATE']) ?></span></span>
                                     <?php $post_id=$row_cursor['POST_ID']; ?>
                                     <span class="col-1-sm">
-                                        <select onchange="postOptions(this.value,<?= $post_id ?>)" class="post-options">
+                                        <select onchange="postOptions(this.value,<?= $post_id ?>,<?= $user_id?>)" class="post-options">
                                             <option value=""></option>
                                             <option value="deletePost">Delete Post</option></span>
                                         </select>
