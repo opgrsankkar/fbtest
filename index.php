@@ -20,7 +20,7 @@ $user_id = $_SESSION['user_id'];
             function postOptions(option, post_id, user_id) {
                 if(option=='deletePost'){
                         $.post("deletePost.php",{ p_id: post_id, u_id :user_id });
-                        // window.location.href = "index.php";
+                        window.location.href = "index.php";
                 } else if (option=='editPost') {
                     window.location.href = "editPost.html";
                 }
