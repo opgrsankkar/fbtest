@@ -65,10 +65,11 @@ $user_id = $_SESSION['user_id'];
             </div>
                  <?php
                 connect();
-                $sqle = 'SELECT FNAME,LNAME,EVENT_NAME,START_DATE,END_DATE,EVENT_DESC FROM EVENTS NATURAL JOIN USERS WHERE 
+                $sqle = 'SELECT FNAME,LNAME,EVENT_NAME,START_DATE,END_DATE,EVENT_DESC FROM EVENTS NATURAL JOIN USERS WHERE
+                    UNIX_TIMESTAMP(END_DATE) > UNIX_TIMESTAMP(NOW()) AND(
                     USER_ID IN (SELECT USER_ID2 AS U_ID FROM FRIENDS WHERE(USER_ID1='.$user_id.') AND ACCEPT_DATE IS NOT NULL) OR 
                     USER_ID IN (SELECT USER_ID1 AS U_ID FROM FRIENDS WHERE (USER_ID2='.$user_id.') AND ACCEPT_DATE IS NOT NULL) OR 
-                    USER_ID IN(SELECT USER_ID AS U_IS FROM USERS WHERE USER_ID = '.$user_id.')
+                    USER_ID IN(SELECT USER_ID AS U_IS FROM USERS WHERE USER_ID = '.$user_id.'))
                     ORDER BY ADD_DATE DESC';
                 $resulte = $conn->query($sqle);
                 if ($resulte->num_rows > 0) {
